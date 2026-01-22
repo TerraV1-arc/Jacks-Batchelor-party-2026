@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Itinerary: Chicago ↔ Fort Lauderdale</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      max-width: 500px;
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      padding: 24px;
+      text-align: center;
+    }
+    
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    .header .route {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    .price-badge {
+      background: #10b981;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: inline-block;
+      margin-top: 12px;
+    }
+    
+    .flights {
+      padding: 24px;
+    }
+    
+    .flight {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border-left: 4px solid #3b82f6;
+    }
+    
+    .flight:last-of-type {
+      margin-bottom: 0;
+    }
+    
+    .flight-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #3b82f6;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    
+    .flight-date {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 12px;
+    }
+    
+    .flight-times {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    
+    .time {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    
+    .arrow {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .arrow::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: #cbd5e1;
+    }
+    
+    .arrow::after {
+      content: '✈';
+      font-size: 1.25rem;
+      background: #f8fafc;
+      padding: 0 8px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .flight-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.875rem;
+      color: #64748b;
+    }
+    
+    .meta-item svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .airline-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .airline-logo img {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .airline-logo span {
+      font-weight: 500;
+      color: #475569;
+    }
+    
+    .details {
+      padding: 0 24px 24px;
+    }
+    
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+    
+    .detail-label {
+      color: #64748b;
+      font-size: 0.875rem;
+    }
+    
+    .detail-value {
+      color: #1e293b;
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+    
+    .eco-badge {
+      background: #dcfce7;
+      color: #166534;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .cta {
+      padding: 24px;
+      background: #f8fafc;
+      text-align: center;
+    }
+    
+    .book-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: white;
+      text-decoration: none;
+      padding: 16px 48px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    }
+    
+    .book-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    }
+    
+    .cta-note {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+    
+    .footer {
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    .nonstop {
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>✈️ Flight Itinerary</h1>
+      <div class="route">Chicago (ORD) ↔ Fort Lauderdale (FLL)</div>
+      <div class="price-badge">$224 Roundtrip</div>
+    </div>
+    
+    <div class="flights">
+      <!-- Outbound Flight -->
+      <div class="flight">
+        <div class="flight-label">Outbound Flight</div>
+        <div class="flight-date">Friday, March 6, 2026</div>
+        <div class="airline-logo">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="#1e40af">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+          <span>United Airlines</span>
+        </div>
+        <div class="flight-times">
+          <div class="time">6:15 PM</div>
+          <div class="arrow"></div>
+          <div class="time">10:35 PM</div>
+        </div>
+        <div class="flight-meta">
+          <div class="meta-item">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            3h 20m
+          </div>
+          <div class="meta-item">
+            <span class="nonstop">NONSTOP</span>
+          </div>
+          <div class="meta-item">
+            <span class="eco-badge">-14% emissions</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Return Flight -->
+      <div class="flight">
+        <div class="flight-label">Return Flight</div>
+        <div class="flight-date">Monday, March 9, 2026</div>
+        <div class="airline-logo">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="#1e40af">
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+          <span>United Airlines</span>
+        </div>
+        <div class="flight-times">
+          <div class="time">9:00 AM</div>
+          <div class="arrow"></div>
+          <div class="time">11:34 AM</div>
+        </div>
+        <div class="flight-meta">
+          <div class="meta-item">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            3h 34m
+          </div>
+          <div class="meta-item">
+            <span class="nonstop">NONSTOP</span>
+          </div>
+          <div class="meta-item">
+            <span class="eco-badge">-31% emissions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="details">
+      <div class="detail-row">
+        <span class="detail-label">Fare Class</span>
+        <span class="detail-value">Basic Economy</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Passengers</span>
+        <span class="detail-value">1 Adult</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Carry-on Bag</span>
+        <span class="detail-value">Not included (personal item only)</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Checked Bag</span>
+        <span class="detail-value">$80 per bag</span>
+      </div>
+    </div>
+    
+    <div class="cta">
+      <a href="https://www.google.com/travel/flights/s/cfo3kU7UuWzZc1VU8" target="_blank" class="book-btn">
+        View & Book on Google Flights
+      </a>
+      <p class="cta-note">Click to view live pricing, select seats, or explore other options</p>
+    </div>
+    
+    <div class="footer">
+      Prices and availability subject to change. Shared via Google Flights.
+    </div>
+  </div>
+</body>
+</html>
